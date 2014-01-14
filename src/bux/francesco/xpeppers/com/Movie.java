@@ -26,7 +26,6 @@ public class Movie extends DomainObject {
 	}
 
 	public double extractCharge(int daysRented) {
-		// determine amounts for each line
 		double amount = 0;
 		switch (this.priceCode()) {
 			case Movie.REGULAR:
