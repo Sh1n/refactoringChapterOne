@@ -14,22 +14,16 @@ class Customer extends DomainObject {
 		Enumeration rentals = _rentals.elements();
 		String result = "Rental Record for " + name() + "\n";
 		while (rentals.hasMoreElements()) {
-			double thisAmount = 0;
 			Rental each = (Rental) rentals.nextElement();
-
-			thisAmount = each.extractMovieAmount();
-			totalAmount += thisAmount;
-
+			totalAmount += each.extractAmount();
 			// add frequent renter points
 			frequentRenterPoints++;
 			// add bonus for a two day new release rental
-			if ((each.tape().movie().priceCode() == Movie.NEW_RELEASE)
-					&& each.daysRented() > 1)
-				frequentRenterPoints++;
+			frequentRenterPoints += each.extractFrequencyPoints();
 
 			// show figures for this rental
 			result += "\t" + each.tape().movie().name() + "\t"
-					+ String.valueOf(thisAmount) + "\n";
+					+ String.valueOf(each.extractAmount()) + "\n";
 
 		}
 		// add footer lines
@@ -39,7 +33,6 @@ class Customer extends DomainObject {
 		return result;
 
 	}
-
 
 	public void addRental(Rental arg) {
 		_rentals.addElement(arg);

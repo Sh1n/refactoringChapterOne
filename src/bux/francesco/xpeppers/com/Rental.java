@@ -18,7 +18,7 @@ class Rental extends DomainObject {
 
 	private int _daysRented;
 	
-	public double extractMovieAmount() {
+	public double extractAmount() {
 		// determine amounts for each line
 		double amount = 0;
 		switch (this.tape().movie().priceCode()) {
@@ -38,5 +38,11 @@ class Rental extends DomainObject {
 
 		}
 		return amount;
+	}
+
+	public int extractFrequencyPoints() {
+		if ((tape().movie().priceCode() == Movie.NEW_RELEASE) && daysRented() > 1)
+			return 1;
+		return 0;
 	}
 }
