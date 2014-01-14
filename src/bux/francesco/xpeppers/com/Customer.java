@@ -17,23 +17,7 @@ class Customer extends DomainObject {
 			double thisAmount = 0;
 			Rental each = (Rental) rentals.nextElement();
 
-			// determine amounts for each line
-			switch (each.tape().movie().priceCode()) {
-			case Movie.REGULAR:
-				thisAmount += 2;
-				if (each.daysRented() > 2)
-					thisAmount += (each.daysRented() - 2) * 1.5;
-				break;
-			case Movie.NEW_RELEASE:
-				thisAmount += each.daysRented() * 3;
-				break;
-			case Movie.CHILDRENS:
-				thisAmount += 1.5;
-				if (each.daysRented() > 3)
-					thisAmount += (each.daysRented() - 3) * 1.5;
-				break;
-
-			}
+			thisAmount = each.extractMovieAmount();
 			totalAmount += thisAmount;
 
 			// add frequent renter points
@@ -55,6 +39,7 @@ class Customer extends DomainObject {
 		return result;
 
 	}
+
 
 	public void addRental(Rental arg) {
 		_rentals.addElement(arg);

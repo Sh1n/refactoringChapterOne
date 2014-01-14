@@ -17,4 +17,26 @@ class Rental extends DomainObject {
 	}
 
 	private int _daysRented;
+	
+	public double extractMovieAmount() {
+		// determine amounts for each line
+		double amount = 0;
+		switch (this.tape().movie().priceCode()) {
+			case Movie.REGULAR:
+				amount += 2;
+				if (this.daysRented() > 2)
+					amount += (this.daysRented() - 2) * 1.5;
+				break;
+			case Movie.NEW_RELEASE:
+				amount += this.daysRented() * 3;
+				break;
+			case Movie.CHILDRENS:
+				amount += 1.5;
+				if (this.daysRented() > 3)
+					amount += (this.daysRented() - 3) * 1.5;
+				break;
+
+		}
+		return amount;
+	}
 }
