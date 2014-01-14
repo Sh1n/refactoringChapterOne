@@ -9,29 +9,40 @@ class Customer extends DomainObject {
 	}
 
 	public String statement() {
-		double totalAmount = 0;
-		int frequentRenterPoints = 0;
 		Enumeration rentals = _rentals.elements();
 		String result = "Rental Record for " + name() + "\n";
 		while (rentals.hasMoreElements()) {
 			Rental each = (Rental) rentals.nextElement();
-			totalAmount += each.extractAmount();
-			// add frequent renter points
-			frequentRenterPoints++;
-			// add bonus for a two day new release rental
-			frequentRenterPoints += each.extractFrequencyPoints();
-
-			// show figures for this rental
 			result += "\t" + each.tape().movie().name() + "\t"
 					+ String.valueOf(each.extractAmount()) + "\n";
 
 		}
 		// add footer lines
-		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-		result += "You earned " + String.valueOf(frequentRenterPoints)
+		result += "Amount owed is " + String.valueOf(getTotalAmount()) + "\n";
+		result += "You earned " + String.valueOf(getTotalFrequecePoints())
 				+ " frequent renter points";
 		return result;
 
+	}
+	
+	private double getTotalAmount() {
+		double totalAmount = 0;
+		Enumeration rentals = _rentals.elements();
+		while(rentals.hasMoreElements()){
+			Rental aRental = (Rental) rentals.nextElement();
+			totalAmount += aRental.extractAmount();
+		}
+		return totalAmount;
+	}
+	
+	private int getTotalFrequecePoints(){
+		int pointAmount = 0;
+		Enumeration rentals = _rentals.elements();
+		while(rentals.hasMoreElements()){
+			Rental aRental = (Rental) rentals.nextElement();
+			pointAmount += aRental.extractFrequencyPoints();
+		}
+		return pointAmount;
 	}
 
 	public void addRental(Rental arg) {

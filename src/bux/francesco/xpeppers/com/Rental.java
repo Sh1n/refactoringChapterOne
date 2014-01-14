@@ -1,6 +1,7 @@
 package bux.francesco.xpeppers.com;
 
 class Rental extends DomainObject {
+	
 	public int daysRented() {
 		return _daysRented;
 	}
@@ -42,7 +43,7 @@ class Rental extends DomainObject {
 
 	public int extractFrequencyPoints() {
 		if ((tape().movie().priceCode() == Movie.NEW_RELEASE) && daysRented() > 1)
-			return 1;
-		return 0;
+			return 2;
+		return 1;
 	}
 }
