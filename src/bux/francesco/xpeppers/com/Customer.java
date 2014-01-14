@@ -13,8 +13,8 @@ class Customer extends DomainObject {
 		String result = "Rental Record for " + name() + "\n";
 		while (rentals.hasMoreElements()) {
 			Rental each = (Rental) rentals.nextElement();
-			result += "\t" + each.tape().movie().name() + "\t"
-					+ String.valueOf(each.extractAmount()) + "\n";
+			result += "\t" + each.getTape().getMovie().name() + "\t"
+					+ String.valueOf(each.extractCharge()) + "\n";
 
 		}
 		// add footer lines
@@ -30,7 +30,7 @@ class Customer extends DomainObject {
 		Enumeration rentals = _rentals.elements();
 		while(rentals.hasMoreElements()){
 			Rental aRental = (Rental) rentals.nextElement();
-			totalAmount += aRental.extractAmount();
+			totalAmount += aRental.extractCharge();
 		}
 		return totalAmount;
 	}

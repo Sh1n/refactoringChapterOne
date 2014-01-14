@@ -6,7 +6,7 @@ class Rental extends DomainObject {
 		return _daysRented;
 	}
 
-	public Tape tape() {
+	public Tape getTape() {
 		return _tape;
 	}
 
@@ -19,12 +19,12 @@ class Rental extends DomainObject {
 
 	private int _daysRented;
 	
-	public double extractAmount() {
-		return this.tape().extractAmount(this.daysRented());
+	public double extractCharge() {
+		return this.getTape().extractAmount(this.daysRented());
 	}
 
 	public int extractFrequencyPoints() {
-		if ((tape().movie().priceCode() == Movie.NEW_RELEASE) && daysRented() > 1)
+		if ((getTape().getMovie().priceCode() == Movie.NEW_RELEASE) && daysRented() > 1)
 			return 2;
 		return 1;
 	}
